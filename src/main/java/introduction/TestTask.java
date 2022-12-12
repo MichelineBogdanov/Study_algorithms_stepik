@@ -17,7 +17,7 @@ package introduction;
 
 import java.util.Scanner;
 
-public class Lesson1 {
+public class TestTask {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -25,7 +25,7 @@ public class Lesson1 {
         String[] arr = s.split(" ");
         int a = Integer.parseInt(arr[0]);
         int b = Integer.parseInt(arr[1]);
-        System.out.print(add(a, b));
+        System.out.println(add(a, b));
     }
 
     public static int add(int a, int b) {
