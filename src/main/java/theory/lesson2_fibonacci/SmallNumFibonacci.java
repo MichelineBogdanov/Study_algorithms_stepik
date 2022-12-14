@@ -1,4 +1,4 @@
-package theory;
+package theory.lesson2_fibonacci;
 
 /*
 Дано целое число 1≤n≤40, необходимо вычислить n-е число Фибоначчи

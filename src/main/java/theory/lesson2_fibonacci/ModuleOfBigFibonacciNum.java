@@ -1,7 +1,7 @@
-package theory;
+package theory.lesson2_fibonacci;
 
 /*
-Даны целые числа 1≤n≤10^{18} 2≤m≤10^{5}, необходимо найти остаток от деления nn-го числа Фибоначчи на m.
+Даны целые числа 1≤n≤10^{18} 2≤m≤10^{5}, необходимо найти остаток от деления n-го числа Фибоначчи на m.
 */
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class ModuleOfBigFibonacciNum {
             long prev = ints.get(i - 1);
             long next = (cur + prev) % mod;
             ints.add(next);
-            if (ints.get(ints.size() - 1) == 1 && ints.get(ints.size() - 2) == 0) {
+            if ((ints.get(ints.size() - 1) == 1) && (ints.get(ints.size() - 2) == 0)) {
                 period = ints.size() - 2;
                 break;
             }
