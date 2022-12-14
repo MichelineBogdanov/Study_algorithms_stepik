@@ -11,6 +11,8 @@ Sample Input:
 7 3
 Sample Output:
 10
+
+
 */
 
 package introduction;
