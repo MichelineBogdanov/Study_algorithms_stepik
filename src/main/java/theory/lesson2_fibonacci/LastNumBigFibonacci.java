@@ -23,7 +23,7 @@ public class LastNumBigFibonacci {
         int next = 1;
         int result = 0;
         for (int i = 0; i < n - 1; i++) {
-            result = ((current % 10) + (next % 10)) % 10;
+            result = (current + next) % 10;
             current = next;
             next = result;
         }
