@@ -13,7 +13,7 @@ package greedyalgorithms.lesson2_huffmancodes;
  * 1 1
  * a: 0
  * 0
- * *
+ *
  * Sample Input 2:
  * abacabad
  *
@@ -38,41 +38,41 @@ class HuffmanCode {
     }
 
     private void huffmanCode(String input) {
-        Comparator<Node> nodeComparator = Comparator.comparingLong(Node::getValue);
-        PriorityQueue<Node> priorityQueue = new PriorityQueue<>(nodeComparator);
+        Comparator<NodeC> nodeComparator = Comparator.comparingLong(NodeC::getValue);
+        PriorityQueue<NodeC> priorityQueue = new PriorityQueue<>(nodeComparator);
 
-        List<Node> nodeList = input.chars()
+        List<NodeC> nodeList = input.chars()
                 .mapToObj(c -> String.valueOf((char) c))
                 .collect(Collectors.groupingBy(letter -> letter, Collectors.counting()))
                 .entrySet()
                 .stream()
-                .map(entry -> new Node(entry.getKey(), entry.getValue()))
+                .map(entry -> new NodeC(entry.getKey(), entry.getValue()))
                 .sorted(nodeComparator)
                 .toList();
 
         priorityQueue.addAll(nodeList);
 
         while (priorityQueue.size() > 1) {
-            Node poll1 = priorityQueue.poll();
-            Node poll2 = priorityQueue.poll();
+            NodeC poll1 = priorityQueue.poll();
+            NodeC poll2 = priorityQueue.poll();
             long valNew = poll1.getValue() + poll2.getValue();
-            Node node = new Node(null, valNew, poll2, poll1);
+            NodeC node = new NodeC(null, valNew, poll2, poll1);
             priorityQueue.add(node);
         }
 
-        Node poll = priorityQueue.poll();
+        NodeC poll = priorityQueue.poll();
         StringBuilder stringBuilder = new StringBuilder();
         setCodeToNodes(poll, stringBuilder);
-        List<Node> leafs = new ArrayList<>();
+        List<NodeC> leafs = new ArrayList<>();
         getLeafs(poll, leafs);
 
         long size = 0;
-        for (Node leaf : leafs) {
+        for (NodeC leaf : leafs) {
             size += leaf.getCode().length() * leaf.getValue();
         }
         System.out.println(leafs.size() + " " + size);
         Map<String, String> map = new HashMap<>();
-        for (Node leaf : leafs) {
+        for (NodeC leaf : leafs) {
             System.out.println(leaf.getLetter() + ": " + leaf.getCode());
             map.put(leaf.getLetter(), leaf.getCode());
         }
@@ -84,7 +84,7 @@ class HuffmanCode {
 
     }
 
-    public void setCodeToNodes(Node node, StringBuilder code) {
+    public void setCodeToNodes(NodeC node, StringBuilder code) {
         if (node.getLetter() != null) {
             String resultCode = code.isEmpty() ? "0" : code.toString();
             node.setCode(resultCode);
@@ -92,51 +92,51 @@ class HuffmanCode {
         }
         if (node.checkLeft()) {
             code.append("0");
-            Node left = node.getLeft();
+            NodeC left = node.getLeft();
             setCodeToNodes(left, code);
         }
         if (node.checkRight()) {
             code.deleteCharAt(code.length() - 1);
             code.append("1");
-            Node right = node.getRight();
+            NodeC right = node.getRight();
             setCodeToNodes(right, code);
         }
         code.deleteCharAt(code.length() - 1);
     }
 
-    public void getLeafs(Node node, List<Node> list) {
+    public void getLeafs(NodeC node, List<NodeC> list) {
         if (node.getLetter() != null) {
             list.add(node);
             return;
         }
         if (node.checkLeft()) {
-            Node left = node.getLeft();
+            NodeC left = node.getLeft();
             getLeafs(left, list);
         }
         if (node.checkRight()) {
-            Node right = node.getRight();
+            NodeC right = node.getRight();
             getLeafs(right, list);
         }
     }
 }
 
-class Node {
+class NodeC {
 
     private String letter;
     private long value;
     private String code;
 
-    private Node right;
-    private Node left;
+    private NodeC right;
+    private NodeC left;
 
-    public Node(String letter, long value, Node right, Node left) {
+    public NodeC(String letter, long value, NodeC right, NodeC left) {
         this.letter = letter;
         this.value = value;
         this.right = right;
         this.left = left;
     }
 
-    public Node(String letter, long value) {
+    public NodeC(String letter, long value) {
         this.letter = letter;
         this.value = value;
     }
@@ -165,11 +165,11 @@ class Node {
         this.code = code;
     }
 
-    public Node getRight() {
+    public NodeC getRight() {
         return right;
     }
 
-    public Node getLeft() {
+    public NodeC getLeft() {
         return left;
     }
 

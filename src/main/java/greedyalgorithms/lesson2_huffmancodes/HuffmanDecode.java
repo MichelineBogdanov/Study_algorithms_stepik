@@ -16,7 +16,7 @@ package greedyalgorithms.lesson2_huffmancodes;
  * В первой строке выходного файла выведите строку s.
  * Она должна состоять из строчных букв латинского алфавита.
  * Гарантируется, что длина правильного ответа не превосходит 10^4 символов.
-
+ *
  * Sample Input 1:
  * 1 1
  * a: 0
@@ -37,5 +37,41 @@ package greedyalgorithms.lesson2_huffmancodes;
  * abacabad
  */
 
+import java.util.*;
+
 public class HuffmanDecode {
+
+    public static void main(String[] args) {
+        HuffmanDecode huffmanDecode = new HuffmanDecode();
+        Scanner scanner = new Scanner(System.in);
+        String linesCount = scanner.nextLine();
+        String[] linesCountArr = linesCount.split(" ");
+        int count = Integer.parseInt(linesCountArr[0]);
+        Map<String, String> map = new HashMap<>();
+        for (int i = 0; i < count; i++) {
+            String codes = scanner.nextLine();
+            String[] code = codes.split(": ");
+            map.put(code[1], code[0]);
+        }
+        String textCode = scanner.nextLine();
+        String decode = huffmanDecode.decode(map, textCode);
+        System.out.println(decode);
+    }
+
+    public String decode(Map<String, String> map, String textCode) {
+        StringBuilder result = new StringBuilder();
+        StringBuilder checker = new StringBuilder();
+        List<String> list = textCode.chars()
+                .mapToObj(c -> String.valueOf((char) c))
+                .toList();
+        for (String s : list) {
+            checker.append(s);
+            if (map.containsKey(checker.toString())) {
+                String found = map.get(checker.toString());
+                result.append(found);
+                checker.delete(0, checker.length());
+            }
+        }
+        return result.toString();
+    }
 }
