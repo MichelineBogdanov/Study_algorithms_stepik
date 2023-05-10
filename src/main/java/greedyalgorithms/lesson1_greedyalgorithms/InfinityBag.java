@@ -54,14 +54,14 @@ public class InfinityBag {
                 .sorted(Comparator.comparing(Thing::getPrice).reversed())
                 .toList();
         double maxPriceBag = 0.0;
-        for (Thing thing : sortedByPrice) {
-            double volume = thing.getVolume();
+        for (Thing value : sortedByPrice) {
             if (bagVolume > 0) {
+                double volume = value.getVolume();
                 if (bagVolume >= volume) {
-                    maxPriceBag += thing.getPriceByVolume(volume);
+                    maxPriceBag += value.getPriceByVolume(volume);
                     bagVolume -= volume;
                 } else {
-                    maxPriceBag += thing.getPriceByVolume(bagVolume);
+                    maxPriceBag += value.getPriceByVolume(bagVolume);
                     bagVolume = 0;
                 }
             }
