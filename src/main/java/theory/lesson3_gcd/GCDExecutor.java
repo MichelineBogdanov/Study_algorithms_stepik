@@ -2,7 +2,7 @@ package theory.lesson3_gcd;
 
 import java.util.Scanner;
 
-/*
+/**
  * По данным двум числам 1≤a,b≤2⋅10^{9} найдите их наибольший общий делитель.
  */
 
