@@ -122,8 +122,8 @@ class HuffmanCode {
 
 class NodeC {
 
-    private String letter;
-    private long value;
+    private final String letter;
+    private final long value;
     private String code;
 
     private NodeC right;
