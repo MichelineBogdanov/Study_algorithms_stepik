@@ -14,7 +14,7 @@ package dynamicprogramming.lesson2_largestincreasingsubsequence;
  * 1 3 4 5
  * */
 
-public class LargestNonincreasingSubsequence {
+public class LargestNonIncreasingSubsequence {
 
     public static void main(String[] args) {
 
