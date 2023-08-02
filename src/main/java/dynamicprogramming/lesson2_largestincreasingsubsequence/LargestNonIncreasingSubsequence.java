@@ -1,5 +1,8 @@
 package dynamicprogramming.lesson2_largestincreasingsubsequence;
 
+import java.util.Arrays;
+import java.util.Scanner;
+
 /**
  * Дано целое число 1≤n≤10^5 и массив A[1…n], содержащий неотрицательные целые числа, не превосходящих 10^9.
  * Найдите наибольшую невозрастающую подпоследовательность в A. В первой строке выведите её длину k,
@@ -17,7 +20,15 @@ package dynamicprogramming.lesson2_largestincreasingsubsequence;
 public class LargestNonIncreasingSubsequence {
 
     public static void main(String[] args) {
+        LargestNonIncreasingSubsequence largestNonIncreasingSubsequence = new LargestNonIncreasingSubsequence();
+        largestNonIncreasingSubsequence.run();
+    }
 
+    private void run() {
+        Scanner scanner = new Scanner(System.in);
+        int[] data = Arrays.stream(scanner.nextLine().split(" "))
+                .mapToInt(Integer::parseInt)
+                .toArray();
     }
 
 }
