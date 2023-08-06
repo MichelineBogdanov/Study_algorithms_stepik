@@ -25,6 +25,7 @@ public class LargestSuccessiveSubsequence {
 
     private void run() {
         Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
         int[] data = Arrays.stream(scanner.nextLine().split(" "))
                 .mapToInt(Integer::parseInt)
                 .toArray();
