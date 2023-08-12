@@ -30,11 +30,11 @@ public class LargestNonIncreasingSubsequence {
         int[] data = Arrays.stream(scanner.nextLine().split(" "))
                 .mapToInt(Integer::parseInt)
                 .toArray();
-        int[] d = LNISBottomUP1(data);
-        int max = Arrays.stream(d).max().orElse(0);
-        int[] lnis = getLNIS(data, d, max);
+        int[] res = LNISBottomUP2(data);
+        int max = res.length;
         System.out.println(max);
-        System.out.println(Arrays.toString(lnis).replaceAll("[\\[\\],]", ""));
+        String answer = Arrays.toString(res).replaceAll("[\\[\\],]", "");
+        System.out.println(answer);
     }
 
     /**************************************
@@ -55,7 +55,7 @@ public class LargestNonIncreasingSubsequence {
         return d;
     }
 
-    private int[] getLNIS(int[] data, int[] d, int max) {
+    private int[] getLNIS1(int[] data, int[] d, int max) {
         int[] answer = new int[max];
         int j = 0;
         int prevVal = Integer.MIN_VALUE;
@@ -75,33 +75,79 @@ public class LargestNonIncreasingSubsequence {
         if (arr == null || arr.length == 0) {
             throw new IllegalArgumentException("Массив должен содержать элементы");
         }
-
         int lastIndex = 0;
-
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] == max) {
                 lastIndex = i;
             }
         }
-
         return lastIndex;
     }
 
     /**************************************
      * O(n*log(n))
      **************************************/
+
+    //5
+    //5 3 4 4 2
     private int[] LNISBottomUP2(int[] data) {
         int length = data.length;
         int[] d = new int[length];
-        d[0] = 1;
+        Arrays.fill(d, Integer.MIN_VALUE);
+        d[0] = data[0];
+        int[] indexes = new int[length];
+        Arrays.fill(indexes, Integer.MAX_VALUE);
+        indexes[0] = 0;
+        int lengthD = 1;
         for (int i = 1; i < length; i++) {
-            d[i] = 1;
-            for (int j = 0; j <= i - 1; j++) {
-                if ((data[i] <= data[j]) && (d[j] + 1 > d[i])) {
-                    d[i] = d[j] + 1;
-                }
+            int index = binarySearch(d, data[i]);
+            if (d[lengthD - 1] >= data[i]) {
+                d[lengthD] = data[i];
+                indexes[i] = lengthD;
+                lengthD++;
+            } else if (index < lengthD) {
+                d[index] = data[i];
+                indexes[i] = index;
             }
         }
-        return d;
+        d = Arrays.stream(d).filter(i -> i != Integer.MIN_VALUE).toArray();
+        return getLNIS2(data, d, indexes);
     }
+
+    private int[] getLNIS2(int[] data, int[] d, int[] indexes) {
+        int max = d.length;
+        int last = d[max - 1];
+        int[] answer = new int[max];
+        int j = 0;
+        for (int i = data.length - 1; i >= 0; i--) {
+            if (indexes[i] == max - 1 && last <= data[i]) {
+                max--;
+                answer[answer.length - j - 1] = i + 1;
+                last = data[i];
+                j++;
+            }
+        }
+        return answer;
+    }
+
+    private int binarySearch(int[] data, int value) {
+        int start = 1;
+        int end = data.length;
+        while (start <= end) {
+            int current = (start + end) / 2;
+            int check = data[current - 1];
+            if (check == value) {
+                while (current + 1 < data.length && value == data[current]) {
+                    current++;
+                }
+                return current;
+            } else if (check > value) {
+                start = current + 1;
+            } else {
+                end = current - 1;
+            }
+        }
+        return start - 1;
+    }
+
 }

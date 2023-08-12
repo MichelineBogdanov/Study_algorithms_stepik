@@ -48,7 +48,7 @@ public class BinarySearch {
             int current = (start + end) / 2;
             int check = elementData[current - 1];
             if (check == search) {
-                return current;
+                return current - 1;
             } else if (check < search) {
                 start = current + 1;
             } else {
