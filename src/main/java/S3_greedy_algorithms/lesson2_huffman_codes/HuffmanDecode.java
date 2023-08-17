@@ -24,7 +24,7 @@ package S3_greedy_algorithms.lesson2_huffman_codes;
  * ---
  * Sample Output 1:
  * a
- * <p>
+ * ---
  * Sample Input 2:
  * 4 14
  * a: 0
@@ -32,7 +32,7 @@ package S3_greedy_algorithms.lesson2_huffman_codes;
  * c: 110
  * d: 111
  * 01001100100111
- * <p>
+ * ---
  * Sample Output 2:
  * abacabad
  */
